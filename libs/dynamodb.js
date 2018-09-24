@@ -35,7 +35,18 @@ let getItem = async (itemId) => {
   return result;
 }
 
+let getItems = async () => {
+  const params = {
+    TableName: dynamoDbTable
+  }
+
+  let result = await dynamoDb.scan(params, null).promise();
+  console.log(result);
+  return result;
+}
+
 module.exports = {
   putItem: putItem,
-  getItem: getItem
+  getItem: getItem,
+  getItems: getItems
 };
