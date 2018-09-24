@@ -40,6 +40,13 @@ functions:
           path: shoppinglist/{id}
           method: get
           cors: true
+  list:
+    handler: functions/list.execute
+    events:
+    - http:
+        path: shoppinglist
+        method: get
+        cors: true
 
 resources:
   Resources:
