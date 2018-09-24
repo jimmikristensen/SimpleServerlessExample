@@ -5,9 +5,8 @@
   "author": "Jimmi Kristensen",
   "license": "MIT",
   "dependencies": {
-    "aws-sdk": "^2.315.0",
+    "aws-sdk": "^2.320.0",
     "lodash": "^4.17.11",
-    "nodejscore": "^0.5.0",
     "uuid": "^2.0.3"
   }
 }
