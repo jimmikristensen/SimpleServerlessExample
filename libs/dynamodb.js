@@ -35,9 +35,11 @@ let getItem = async (itemId) => {
   return result;
 }
 
-let getItems = async () => {
-  const params = {
-    TableName: dynamoDbTable
+let getItems = async (limit, exclusiveStartKey) => {
+  let params = {
+    TableName: dynamoDbTable,
+    Limit: limit,
+    ...(exclusiveStartKey !== '' && {ExclusiveStartKey: {id: exclusiveStartKey}})
   }
 
   let result = await dynamoDb.scan(params, null).promise();
