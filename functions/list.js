@@ -5,19 +5,20 @@ const dynamoDB = require('../libs/dynamodb');
 module.exports.execute = async (event) => {
   try {
     let limit = 10;
-    let exclusiveStartKey =  '' // Query using the LastEvaluatedKey to gain offset
+    let exclusiveStartKey =  '' // Scan using the LastEvaluatedKey to gain pagination
 
     if (event.queryStringParameters !== null && event.queryStringParameters !== undefined) {
-      if (Number.isInteger(event.queryStringParameters.limit)
-        && event.queryStringParameters.limit < 100
-        && event.queryStringParameters.limit > 0) {
+      let limitQuery = event.queryStringParameters.limit;
 
-        limit = event.queryStringParameters.limit;
+      if (!isNaN(limitQuery)
+        && limitQuery <= 100
+        && limitQuery > 0) {
+
+        limit = limitQuery;
       }
 
-      if (typeof event.queryStringParameters.fromId === 'string') {
-
-        exclusiveStartKey = event.queryStringParameters.fromId;
+      if (typeof event.queryStringParameters.next === 'string') {
+        exclusiveStartKey = event.queryStringParameters.next;
       }
     }
 
@@ -27,7 +28,8 @@ module.exports.execute = async (event) => {
       statusCode: 200,
       body: JSON.stringify({
         count: itemList.Count,
-        items: itemList.Items
+        items: itemList.Items,
+        ...(itemList.LastEvaluatedKey !== undefined && {next: itemList.LastEvaluatedKey.id})
       })
     };
 
@@ -41,5 +43,4 @@ module.exports.execute = async (event) => {
       })
     };
   }
-
 };
