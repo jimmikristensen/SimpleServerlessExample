@@ -50,7 +50,7 @@ functions:
 
 resources:
   Resources:
-    TodosDynamoDbTable:
+    ShoppingListDynamoDbTable:
       Type: 'AWS::DynamoDB::Table'
       DeletionPolicy: Retain
       Properties:
