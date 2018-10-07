@@ -47,6 +47,13 @@ functions:
         path: shoppinglist
         method: get
         cors: true
+  delete:
+    handler: functions/delete.execute
+    events:
+    - http:
+        path: shippinglist/{id}
+        method: delete
+        cors: true
 
 resources:
   Resources:
