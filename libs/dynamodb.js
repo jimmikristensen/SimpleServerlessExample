@@ -40,14 +40,27 @@ let getItems = async (limit, exclusiveStartKey) => {
     TableName: dynamoDbTable,
     Limit: limit,
     ...(exclusiveStartKey !== '' && {ExclusiveStartKey: {id: exclusiveStartKey}})
-  }
+  };
 
   let result = await dynamoDb.scan(params, null).promise();
   return result;
 }
 
+let deleteItem = async (itemId) => {
+  const params = {
+    TableName: dynamoDbTable,
+    Key: {
+      id: itemId,
+    }
+  };
+
+  let result = await dynamoDb.delete(params, null).promise();
+  console.log("DELETED: ", result);
+}
+
 module.exports = {
   putItem: putItem,
   getItem: getItem,
-  getItems: getItems
+  getItems: getItems,
+  deleteItem: deleteItem
 };
