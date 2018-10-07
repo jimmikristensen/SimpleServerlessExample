@@ -43,7 +43,6 @@ let getItems = async (limit, exclusiveStartKey) => {
   }
 
   let result = await dynamoDb.scan(params, null).promise();
-  console.log(result);
   return result;
 }
 
