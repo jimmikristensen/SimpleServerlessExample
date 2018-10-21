@@ -54,6 +54,13 @@ functions:
         path: shippinglist/{id}
         method: delete
         cors: true
+  replace:
+    handler: functions/replace.execute
+    events:
+    - http:
+        path: shippinglist/{id}
+        method: PUT
+        cors: true
 
 resources:
   Resources:

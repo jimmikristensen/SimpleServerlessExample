@@ -58,9 +58,33 @@ let deleteItem = async (itemId) => {
   console.log("DELETED: ", result);
 }
 
+// https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_UpdateItem.html
+let updateItem = async (itemId, itemText, quantity) => {
+  let timestamp = new Date().getTime();
+
+  const params = {
+    TableName: dynamoDbTable,
+    Key: {
+      id: itemId
+    },
+    ExpressionAttributeValues: {
+      ':item': itemText,
+      ':qty': quantity,
+      ':updatedAt': timestamp
+    },
+    UpdateExpression: 'SET item = :item, qty = :qty, updatedAt = :updatedAt',
+    ReturnValues: 'ALL_NEW'
+  };
+
+  let result =await dynamoDb.update(params, (err, data) => {}).promise();
+  console.log('UPDATED: ', result);
+  return result;
+}
+
 module.exports = {
   putItem: putItem,
   getItem: getItem,
   getItems: getItems,
-  deleteItem: deleteItem
+  deleteItem: deleteItem,
+  updateItem: updateItem
 };
