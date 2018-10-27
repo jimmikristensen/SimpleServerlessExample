@@ -29,17 +29,17 @@ functions:
   create:
     handler: functions/create.execute
     events:
-      - http:
-          path: shoppinglist
-          method: post
-          cors: true
+    - http:
+        path: shoppinglist
+        method: post
+        cors: true
   get:
     handler: functions/get.execute
     events:
-      - http:
-          path: shoppinglist/{id}
-          method: get
-          cors: true
+    - http:
+        path: shoppinglist/{id}
+        method: get
+        cors: true
   list:
     handler: functions/list.execute
     events:
@@ -51,14 +51,14 @@ functions:
     handler: functions/delete.execute
     events:
     - http:
-        path: shippinglist/{id}
+        path: shoppinglist/{id}
         method: delete
         cors: true
   replace:
     handler: functions/replace.execute
     events:
     - http:
-        path: shippinglist/{id}
+        path: shoppinglist/{id}
         method: PUT
         cors: true
 
