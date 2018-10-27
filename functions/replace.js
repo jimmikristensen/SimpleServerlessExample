@@ -18,7 +18,7 @@ module.exports.execute = async (event) => {
   }
 
   try {
-    let updatedItem = await dynamoDB.updateItem(data.item, data.quantity);
+    let updatedItem = await dynamoDB.updateItem(event.pathParameters.id, data.item, data.quantity);
 
     return {
       statusCode: 200,
@@ -31,7 +31,7 @@ module.exports.execute = async (event) => {
       statusCode: 500,
       body: JSON.stringify({
         status: 'Internal server error',
-        message: 'Unable to store item'
+        message: 'Unable to update item'
       })
     };
   }

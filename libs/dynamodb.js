@@ -67,12 +67,15 @@ let updateItem = async (itemId, itemText, quantity) => {
     Key: {
       id: itemId
     },
+    ExpressionAttributeNames: {
+      '#itm': 'item'
+    },
     ExpressionAttributeValues: {
       ':item': itemText,
       ':qty': quantity,
       ':updatedAt': timestamp
     },
-    UpdateExpression: 'SET item = :item, qty = :qty, updatedAt = :updatedAt',
+    UpdateExpression: 'SET #itm = :item, qty = :qty, updatedAt = :updatedAt',
     ReturnValues: 'ALL_NEW'
   };
 
